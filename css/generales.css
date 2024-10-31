@@ -41,7 +41,6 @@ body {
     left: 0;
 }
 
-/*Estilos para el encabezado*/
 
 a {
     text-decoration: none;
@@ -58,7 +57,7 @@ a {
     position: fixed;
     top: 0;
     left: 0;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 1);
 }
 
 .container {
@@ -108,9 +107,6 @@ a {
     padding-bottom: 5px;
 }
 
-/*Fin de Estilos para el encabezado*/
-
-/*Menù lateral*/
 #btn-menu {
     display: none;
 }
@@ -193,11 +189,12 @@ margin-top main {
     z-index: 500;
     height: 8%;
     font-family: oblique;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 1);
 }
 
 .footer.visible {
     display: flex;
+
 }
 
 .footer :hover:not(.social-icons) {
