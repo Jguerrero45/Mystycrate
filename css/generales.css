@@ -15,15 +15,20 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Montserrat Alternates", sans-serif;
+
 }
 
 body {
-    background-image: url("");
+    font-family: "Montserrat Alternates", sans-serif;
+    background-image: url("../img/fondo.jpeg");
     background-attachment: fixed;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
 }
 
 .capa {
@@ -53,6 +58,7 @@ a {
     position: fixed;
     top: 0;
     left: 0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .container {
@@ -120,6 +126,7 @@ a {
     transition: all 500ms ease;
     opacity: 0;
     visibility: hidden;
+    z-index: 1000;
 }
 
 #btn-menu:checked~.container-menu {
@@ -166,4 +173,42 @@ a {
     color: #fffcfc;
     cursor: pointer;
     font-size: 18px;
+}
+
+main {
+    flex: 1;
+}
+
+
+.footer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    bottom: 0;
+    width: 100%;
+    background-color: #012030;
+    color: #ffffff;
+    padding: 5px 0;
+    z-index: 500;
+    height: 8%;
+    font-family: oblique;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.footer :hover:not(.social-icons) {
+    color: #13678A;
+}
+
+.social-icons {
+    font-size: 200%;
+    display: block;
+    justify-content: center;
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    min-width: 400px;
+    justify-content: center;
+    text-align: center;
+
 }
