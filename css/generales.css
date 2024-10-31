@@ -58,7 +58,7 @@ a {
     position: fixed;
     top: 0;
     left: 0;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.4);
 }
 
 .container {
@@ -175,15 +175,15 @@ a {
     font-size: 18px;
 }
 
-main {
+
+margin-top main {
     flex: 1;
 }
 
-
 .footer {
-    position: relative;
-    display: flex;
-    flex-direction: column;
+    margin-top: 52.5%;
+    position: sticky;
+    text-align: center;
     align-items: center;
     bottom: 0;
     width: 100%;
@@ -194,6 +194,10 @@ main {
     height: 8%;
     font-family: oblique;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.footer.visible {
+    display: flex;
 }
 
 .footer :hover:not(.social-icons) {
@@ -210,5 +214,4 @@ main {
     min-width: 400px;
     justify-content: center;
     text-align: center;
-
 }
