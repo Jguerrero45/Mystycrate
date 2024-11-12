@@ -1,0 +1,26 @@
+{
+  "name": "mystycrate",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000M\u0000y\u0000s\u0000t\u0000y\u0000c\u0000r\u0000a\u0000t\u0000e\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "express": "^4.21.1",
+    "express-handlebars": "^8.0.1",
+    "express-myconnection": "^1.0.4",
+    "express-session": "^1.18.1",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "bcrypt": "^5.1.1",
+    "ejs": "^3.1.10",
+    "nodemon": "^3.1.7"
+  }
+}
