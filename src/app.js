@@ -37,7 +37,11 @@ app.use('/', loginRoutes);
 
 
 app.get('/', (req, res) => {
-    res.render('index');
+    if (req.session.loggedin) {
+        res.render('index', {name: req.session.name});
+    } else {
+        res.redirect('/login');
+    }
 });
 
 app.set('view engine', 'ejs');
