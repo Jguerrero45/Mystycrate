@@ -34,8 +34,6 @@ app.use(session({
 
 app.use('/', loginRoutes);
 
-
-
 app.get('/', (req, res) => {
     if (req.session.loggedin) {
         res.render('index', {name: req.session.name});

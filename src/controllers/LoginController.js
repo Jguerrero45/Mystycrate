@@ -11,6 +11,59 @@ function login(req, res) {
   
 }
 
+function realizarpago(req, res) {
+    const data = req.body;
+    const id_usuario = req.params.id_usuario;
+    const id_plan = req.params.id_plan;
+
+    delete data.Numerotarjeta;
+    delete data.titular
+    delete data.fecha_venc
+    delete data.cvv
+    delete data.Direccion
+
+    console.log('id_usuario:', id_usuario);
+    console.log('id_plan:', id_plan);
+    console.log('data:', data);
+
+    req.getConnection((err, conn) => {
+        if (err) {
+            console.error('Error al conectar con la base de datos:', err);
+            return res.status(500).send('Error en el servidor');
+        }
+
+        // Obtener el monto del plan
+        conn.query('SELECT precio FROM planes WHERE id_plan = ?', [id_plan], (err, rows) => {
+            if (err) {
+                console.error('Error al ejecutar la consulta:', err);
+                return res.status(500).send('Error al obtener el monto del plan');
+            }
+
+            if (rows.length === 0) {
+                console.log('Plan no encontrado');
+                return res.render('login/pagos', { message: 'Plan no encontrado' });
+            }
+
+            // Insertar el pago
+            const monto = rows[0].precio;
+            console.log('Monto:', monto);
+            const pago = { usuario_id: id_usuario, id_plan: id_plan, monto, fecha_pago: new Date() };
+            console.log('Pago:', pago);
+
+            conn.query('INSERT INTO pagos SET ?', pago, (err) => {
+                if (err) {
+                    console.error('Error al realizar el pago:', err);
+                    return res.status(500).send('Error al realizar el pago');
+                }
+                //logea el usuario
+                req.session.loggedin = true;
+                console.log('Pago realizado con éxito');
+                res.redirect('/');
+            });
+        });
+    });
+}
+
 
 
 function auth(req, res) {
@@ -42,6 +95,35 @@ function auth(req, res) {
 }
 
 
+function eliminar(req, res) {
+    const userId = req.params.id; // Se obtiene el ID del usuario desde los parámetros de la ruta
+    req.getConnection((err, conn) => {
+        if (err) {
+            console.error('Error al conectar a la base de datos:', err);
+            res.status(500).send('Error al conectar a la base de datos');
+            return;
+        }
+
+        // Realiza la consulta para eliminar al usuario con el ID proporcionado
+        conn.query('DELETE FROM usuarios WHERE usuario_id = ?', [userId], (err, result) => {
+            if (err) {
+                console.error('Error al ejecutar la consulta:', err);
+                res.status(500).send('Error al ejecutar la consulta');
+                return;
+            }
+
+            // Verifica si se eliminó algún registro
+            if (result.affectedRows > 0) {
+                console.log(`Usuario con ID ${userId} eliminado exitosamente`);
+                res.redirect('/');
+            } else {
+                console.log(`Usuario con ID ${userId} no encontrado`);
+                res.status(404).render('error', { message: 'Usuario no encontrado' });
+            }
+        });
+    });
+}
+
 
 function register(req, res) {
   if(req.session.loggedin != true){
@@ -50,6 +132,14 @@ function register(req, res) {
     else{
         res.redirect('/');
     }
+}
+
+function plans(req,res){
+    res.render("login/suscripciones")
+}
+
+function pay(req,res){
+    res.render("login/pagos")
 }
 
 function storeUser(req, res) {
@@ -69,7 +159,7 @@ function storeUser(req, res) {
                     req.getConnection((err, conn) => {
                         conn.query('INSERT INTO usuarios SET ?', [userData], (err, rows) => {
                             console.log('Usuario registrado');
-                            res.redirect('/');
+                            res.redirect('/register/plans/'+rows.insertId);
                         });
                     });
                 });
@@ -95,5 +185,9 @@ module.exports = {
     register: register,
     storeUser: storeUser,
     auth: auth,
-    logout: logout
+    logout: logout,
+    plans: plans,
+    pay: pay,
+    eliminar: eliminar,
+    realizarpago: realizarpago
 };
