@@ -77,6 +77,11 @@ function auth(req, res) {
                         if (result) {
                             req.session.loggedin = true;
                             req.session.name = Element.nombre;
+                            req.session.correo = Element.correo;
+                            console.log(req.session.correo);
+                            if(Element.foto != null){
+                                req.session.userImage = Element.foto.toString('base64');
+                            }
                             res.redirect('/');
                         } else {
                             console.log('Contraseña incorrecta');
@@ -151,6 +156,9 @@ function storeUser(req, res) {
                 res.render('login/registro', {message: 'El usuario ya existe'});
             } else {
                 bcrypt.hash(userData.password,12).then((hash) => {
+                    if (req.file) {
+                        userData.foto = req.file.buffer;
+                    }
                     userData.password=hash;
                     console.log('Hash:', hash);
                     //eliminamos la confirmacion de la contraseña
@@ -159,6 +167,8 @@ function storeUser(req, res) {
                     req.getConnection((err, conn) => {
                         conn.query('INSERT INTO usuarios SET ?', [userData], (err, rows) => {
                             console.log('Usuario registrado');
+                            console.log(userData.nombre);
+                            req.session.name = userData.nombre;
                             res.redirect('/register/plans/'+rows.insertId);
                         });
                     });
@@ -171,11 +181,11 @@ function storeUser(req, res) {
 function logout(req, res){
     if(req.session.loggedin){
         req.session.destroy(() => {
-            res.redirect('/login');
+            res.redirect('/');
         });
     }
     else{
-        res.redirect('/login');
+        res.redirect('/');
     }
 }
 

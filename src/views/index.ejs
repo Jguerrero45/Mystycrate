@@ -29,16 +29,33 @@
             </nav>
         </div>
     </header>
+
     <main>
-        
         <div class="capa"></div>
         <input type="checkbox" id="btn-menu" />
         <div class="container-menu">
             <div class="cont-menu">
                 <nav>
+                    <% if (typeof name !== 'undefined') { %>
+                        <h1><%= name %></h1>
+                    <% } %>
                     
+                    <% if (typeof foto !== 'undefined') { %>
+                        <div class="profile-image-container">
+                            <img src="data:image/jpeg;base64,<%= foto %>" alt="Imagen de perfil" class="profile-image">
+                        </div>
+                    <% } %>
+                    
+                    <!-- Imagen de perfil dentro de un div circular -->
+                    
+
                     <a href="./templates/inventario.html">Inventario</a>
-                    <a href="./templates/perfil.html">Perfil</a>
+                    <% if (typeof correo !== 'undefined') { %>
+                        <a href="perfil/<%=correo%>">Perfil</a>
+                    <% } %>
+                    <% if (typeof correo !== 'undefined') { %>
+                        <a href="perfil/<%=correo%>/eliminar">Eliminar cuenta</a>
+                    <% } %>
                     <a href="./templates/suscripciones.html">Suscripciones</a>
                     <a href="./templates/video.html">Video sobre la pagina</a>
                     <a href="/logout">Cerrar sesion</a>
