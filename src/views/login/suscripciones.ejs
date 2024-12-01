@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Planes de Suscripción</title>
-    <link rel="shortcut icon" href="../../icon/caja2.ico" type="image/x-icon">
-    <link rel="stylesheet" href="../../css/generales.css">
+    <link rel="shortcut icon" href="/icon/caja2.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/generales.css">
     <style>
         /* Estilos específicos para los planes de suscripción */
         .plans-container {
@@ -193,7 +193,7 @@
                     <div class="plan-title">Seasonal Plan</div>
                     <div class="plan-price">$59.99/caja</div>
                     <div class="plan-description">Paga por cada caja de forma estacional. Ideal para quienes quieren probar.</div>
-                    <button class="plan-button" data-plan="3" onclick="openModal('Seasonal Plan', 'Paga $59.99 por caja. Se factura cada temporada. Ideal para principiantes.')">Más detalles</button>
+                    <button class="plan-button" data-plan="1" onclick="openModal('Seasonal Plan', 'Paga $59.99 por caja. Se factura cada temporada. Ideal para principiantes.')">Más detalles</button>
                 </div>
 
                 <!-- Plan 2 -->
@@ -202,7 +202,7 @@
                     <div class="plan-title">Annual Plan</div>
                     <div class="plan-price">$219.99/año</div>
                     <div class="plan-description">Ahorra con el plan anual. Recibe 4 cajas y disfruta de acceso prioritario.</div>
-                    <button class="plan-button" data-plan="4" onclick="openModal('Annual Plan', 'Paga $219.99 al año por cuatro cajas. ¡Ahorra $20 al año y obtén acceso prioritario!')">Más detalles</button>
+                    <button class="plan-button" data-plan="2" onclick="openModal('Annual Plan', 'Paga $219.99 al año por cuatro cajas. ¡Ahorra $20 al año y obtén acceso prioritario!')">Más detalles</button>
                 </div>
             </div>
         </section>
@@ -235,7 +235,7 @@
                     <span class="close" onclick="this.parentElement.parentElement.remove()">&times;</span>
                     <div class="modal-header">${title}</div>
                     <div class="modal-body">${description}</div>
-                    <button onclick="window.location.href='pay/${id}/${idplan}'">Comprar</button>
+                    <button onclick="window.location.href='categorias/${id}/${idplan}'">Comprar</button>
                 </div>`;
             document.body.appendChild(modal);
             modal.style.display = 'flex';

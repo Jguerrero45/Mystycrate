@@ -11,6 +11,15 @@ function login(req, res) {
   
 }
 
+function categorias(req, res) {
+    res.render('login/categorias');
+}
+
+function eleccioncategorias(req, res) {
+    
+}
+
+
 function realizarpago(req, res) {
     const data = req.body;
     const id_usuario = req.params.id_usuario;
@@ -20,7 +29,6 @@ function realizarpago(req, res) {
     delete data.titular
     delete data.fecha_venc
     delete data.cvv
-    delete data.Direccion
 
     console.log('id_usuario:', id_usuario);
     console.log('id_plan:', id_plan);
@@ -48,13 +56,22 @@ function realizarpago(req, res) {
             const monto = rows[0].precio;
             console.log('Monto:', monto);
             const pago = { usuario_id: id_usuario, id_plan: id_plan, monto, fecha_pago: new Date() };
+            const cliente= {id_cliente: id_usuario, direccion: data.Direccion};
             console.log('Pago:', pago);
+
 
             conn.query('INSERT INTO pagos SET ?', pago, (err) => {
                 if (err) {
                     console.error('Error al realizar el pago:', err);
                     return res.status(500).send('Error al realizar el pago');
                 }
+                conn.query('INSERT INTO clientes SET ?', cliente, (err) => {
+                    if (err) {
+                        console.error('Error al registrar cliente:', err);
+                        return res.status(500).send('Error al registrar cliente');
+                    }
+                });
+
                 //logea el usuario
                 req.session.loggedin = true;
                 console.log('Pago realizado con éxito');
@@ -199,5 +216,6 @@ module.exports = {
     plans: plans,
     pay: pay,
     eliminar: eliminar,
-    realizarpago: realizarpago
+    realizarpago: realizarpago,
+    categorias: categorias
 };

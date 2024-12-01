@@ -8,11 +8,11 @@ const app = express();
 const loginRoutes = require('./routes/Login');  
 const perfilRoutes = require('./routes/perfil');
 app.set('port', process.env.PORT || 4000);
-
+const path = require('path');
 app.listen(app.get('port'), () => {
     console.log('Server on port', app.get('port'));
 });
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, '../public')));
 app.set('views', __dirname + '/views');
 
 app.use(bodyParser.urlencoded({extended: false}));
