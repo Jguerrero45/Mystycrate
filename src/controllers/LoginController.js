@@ -16,7 +16,10 @@ function categorias(req, res) {
 }
 
 function eleccioncategorias(req, res) {
-    
+    id_usuario = req.params.id_usuario;
+    id_plan = req.params.id_plan;
+    res.redirect('/register/plans/categorias/'+id_usuario+'/'+id_plan+'/'+"pay");
+
 }
 
 
@@ -217,5 +220,6 @@ module.exports = {
     pay: pay,
     eliminar: eliminar,
     realizarpago: realizarpago,
-    categorias: categorias
+    categorias: categorias,
+    eleccioncategorias: eleccioncategorias
 };

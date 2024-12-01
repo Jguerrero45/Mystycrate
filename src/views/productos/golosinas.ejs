@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Golosina</title>
+
+    <link rel="shortcut icon" href="/icon/caja2.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/generales.css">
+    <link rel="stylesheet" href="/css/login.css">
+    <style>
+        .form {
+            max-width: 500px;
+            margin-top: 18%;
+        }
+
+        /* Estilo del cuadro para vista previa */
+        .image-preview-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .image-preview {
+            width: 300px;
+            height: 300px;
+            background-color: #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border: 2px solid #13678A;
+        }
+
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .upload-label {
+            margin-top: 0.5rem;
+            color: #13678A;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .upload-label:hover {
+            color: #45c480;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="btn-menu">
+                <label for="btn-menu">☰</label>
+            </div>
+            <div class="logo">
+                <a href="/">
+                    <h1>Mystycrate</h1>
+                </a>
+            </div>
+            <nav class="menu">
+                <a href="../index.html">Inicio</a>
+                <a href="informacion.html">Nosotros</a>
+                <a href="/login">Iniciar sesión</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <form class="form" method="post" enctype="multipart/form-data">
+            <h2>Agregar Golosina</h2>
+
+            <!-- Vista previa de imagen -->
+            <div class="image-preview-container">
+                <div class="image-preview" id="image-preview">
+                    <span>Cargar imagen</span>
+                </div>
+                <label for="product_image" class="upload-label">Seleccionar imagen</label>
+                <input type="file" name="product_image" id="product_image" accept="image/*" />
+            </div>
+
+            <!-- Campos del formulario -->
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <label for="nombre" class="label">Nombre de la Golosina</label>
+                <input type="text" name="nombre" id="nombre" placeholder="Nombre del producto" required />
+
+                <label for="sabor" class="label">Sabor</label>
+                <input type="text" name="sabor" id="sabor" placeholder="Ej. Fresa, Chocolate" required />
+
+                <label for="calorias" class="label">calorias</label>
+                <input type="text" name="calorias" id="calorias" placeholder="" required />
+
+                <!-- que el peso sea decimal-->
+
+                <label for="peso" class="label">Peso (g)</label>
+                <input type="number" step="0.01" name="peso" id="peso" placeholder="Ej. 100" required />
+
+                <label for="stock" class="label">Stock</label>
+                <input type="number" name="stock" id="stock" placeholder="Cantidad disponible" required />
+
+                <!-- fecha de expiracion-->
+
+                <label for="fecha_expiracion" class="label">Fecha de expiracion</label>
+                <input type="date" name="fecha_expiracion" id="fecha_expiracion" required />
+
+                <!-- tipo de golosina (gomitas, caramelo, chocolate)-->
+
+                <label for="tipo" class="label">Tipo de golosina</label>
+                <select name="tipo" id="tipo" required>
+                    <option value="gomitas">Gomitas</option>
+                    <option value="chicle">chicle</option>
+                    <option value="chocolate">Chocolate</option>
+                </select>
+                
+
+                <label for="precio" class="label">Precio ($)</label>
+                <input type="number" step="0.01" name="precio" id="precio" placeholder="Ej. 1.50" required />
+
+                <label for="descripcion" class="label">Descripción</label>
+                <textarea name="descripcion" id="descripcion" placeholder="Breve descripción de la golosina" rows="4" required></textarea>
+            </div>
+
+            <input class="submit" type="submit" value="Agregar Golosina" />
+        </form>
+    </main>
+
+    <footer>
+        <section class="footer">
+            <h2><i><b>Mystycrate © 2024</b></i> all rights reserved</h2>
+            <div class="social-icons">
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-twitter"></i>
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-solid fa-envelope"></i>
+            </div>
+        </section>
+    </footer>
+
+    <script>
+        // Referencia al input de archivo y al contenedor de vista previa
+        const fileInput = document.getElementById('product_image');
+        const previewContainer = document.getElementById('image-preview');
+
+        // Función para mostrar la vista previa
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0]; // Obtiene el archivo seleccionado
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = (e) => {
+                    // Crea una imagen y la muestra en el cuadro
+                    previewContainer.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+                };
+
+                reader.readAsDataURL(file); // Lee el archivo como una URL
+            } else {
+                previewContainer.innerHTML = '<span>Cargar imagen</span>';
+            }
+        });
+    </script>
+
+    <script src="https://kit.fontawesome.com/003123b854.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

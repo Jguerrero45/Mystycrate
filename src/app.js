@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const loginRoutes = require('./routes/Login');  
 const perfilRoutes = require('./routes/perfil');
+const categoriasRoutes = require('./routes/productos');
 app.set('port', process.env.PORT || 4000);
 const path = require('path');
 app.listen(app.get('port'), () => {
@@ -38,6 +39,8 @@ app.use(session({
 app.use('/', loginRoutes); 
 
 app.use('/perfil', perfilRoutes);
+
+app.use('/categorias', categoriasRoutes);
 
 app.get('/', (req, res) => {
     if (req.session.loggedin) {
