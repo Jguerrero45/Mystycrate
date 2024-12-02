@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encuestas</title>
+    <link rel="shortcut icon" href="../icon/caja2.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/generales.css">
+    <style>
+        main {
+            margin-top: 25%;
+            margin-left: 10%;
+        }
+
+        .encuesta-container {
+            color: white;
+            display: none;
+            background-color: #012030;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            width: 70%;
+            height: 80%;
+        }
+
+        .boton-toggle {
+            background-color: #45c480;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .boton-toggle:hover {
+            background-color: #13678A;
+        }
+
+        .formulario {
+            margin-top: 20px;
+        }
+
+        .pregunta {
+            margin-bottom: 15px;
+        }
+
+        .pregunta label {
+            display: block;
+            font-weight: bold;
+        }
+
+        .input,
+        .select,
+        .radio-group {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .radio-group input {
+            margin-right: 10px;
+        }
+
+        .submit-btn {
+            background-color: #13678A;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .submit-btn:hover {
+            background-color: #45c480;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="btn-menu">
+                <label for="btn-menu">☰</label>
+            </div>
+            <div class="logo">
+                <a href="../index.html">
+                    <h1>Mystycrate</h1>
+                </a>
+            </div>
+            <nav class="menu">
+                <a href="../index.html">Inicio</a>
+                <a href="informacion.html">Nosotros</a>
+                <a href="login.html">Iniciar sesion</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="capa"></div>
+        <input type="checkbox" id="btn-menu" />
+        <div class="container-menu">
+            <div class="cont-menu">
+                <nav>
+                    <a href="inventario.html">Inventario</a>
+                    <a href="perfil.html">Perfil</a>
+                    <a href="suscripciones.html">Suscripciones</a>
+                    <a href="video.html">Video sobre la pagina</a>
+                    <a href="">Cerrar sesion</a>
+                </nav>
+                <label for="btn-menu">✖️</label>
+            </div>
+        </div>
+        <button class="boton-toggle" onclick="toggleEncuesta()">Mostrar Encuesta</button>
+
+        <div class="encuesta-container" id="encuesta-container">
+            <form class="formulario">
+                <div class="pregunta">
+                    <label for="pregunta1">Pregunta 1 (Input):</label>
+                    <input type="text" id="pregunta1" class="input" placeholder="Escribe tu respuesta">
+                </div>
+
+                <div class="pregunta">
+                    <label for="pregunta2">Pregunta 2 (Opciones Múltiples):</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="opciones" value="opcion1"> Opción 1</label>
+                        <label><input type="radio" name="opciones" value="opcion2"> Opción 2</label>
+                        <label><input type="radio" name="opciones" value="opcion3"> Opción 3</label>
+                    </div>
+                </div>
+
+                <div class="pregunta">
+                    <label for="pregunta3">Pregunta 3 (Dropdown):</label>
+                    <select id="pregunta3" class="select">
+                        <option value="opcion1">Opción 1</option>
+                        <option value="opcion2">Opción 2</option>
+                        <option value="opcion3">Opción 3</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="submit-btn">Enviar Respuestas</button>
+            </form>
+        </div>
+    </main>
+    <footer>
+        <section class="footer">
+            <h2><i><b>Mystycrate © 2024</b></i> all rights reserved</h2>
+            <div class="social-icons">
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-twitter"></i>
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-solid fa-envelope"></i>
+            </div>
+        </section>
+    </footer>
+
+    <script src="https://kit.fontawesome.com/003123b854.js" crossorigin="anonymous"></script>
+    <script>
+        function toggleEncuesta() {
+            var encuesta = document.getElementById('encuesta-container');
+            encuesta.style.display = (encuesta.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
+
+
+</body>
+
+</html>
