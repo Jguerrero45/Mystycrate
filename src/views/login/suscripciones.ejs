@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planes de Suscripción</title>
+    <link rel="shortcut icon" href="/icon/caja2.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/generales.css">
+    <style>
+        /* Estilos específicos para los planes de suscripción */
+        .plans-container {
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+            position: relative;
+            top: 20vw;
+        }
+
+        .plan-card {
+            background-color: #012030;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            padding: 20px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .plan-image {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            background-color: #13678A;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #DAFDBA;
+        }
+
+        .plan-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #DAFDBA;
+        }
+
+        .plan-price {
+            font-size: 18px;
+            color: #45c480;
+            margin-bottom: 15px;
+        }
+
+        .plan-description {
+            font-size: 14px;
+            color: #9AEBA3;
+            margin-bottom: 20px;
+        }
+
+        .plan-button {
+            background-color: #45c480;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .plan-button:hover {
+            background-color: #13678A;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 80%;
+            max-width: 500px;
+        }
+
+        .modal-header {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .modal-body {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .modal button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #45c480;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .modal button:hover {
+            background-color: #13678A;
+        }
+
+        .close {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .close:hover {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="btn-menu">
+                <label for="btn-menu">☰</label>
+            </div>
+            <div class="logo">
+                <a href="index.html">
+                    <h1>Mystycrate</h1>
+                </a>
+            </div>
+            <nav class="menu">
+                <a href="../index.html">Inicio</a>
+                <a href="informacion.html">Nosotros</a>
+                <a href="login.html">Iniciar sesión</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="capa"></div>
+        <input type="checkbox" id="btn-menu" />
+        <div class="container-menu">
+            <div class="cont-menu">
+                <nav>
+                    <a href="inventario.html">Inventario</a>
+                    <a href="perfil.html">Perfil</a>
+                    <a href="suscripciones.html">Suscripciones</a>
+                    <a href="video.html">Video sobre la página</a>
+                    <a href="">Cerrar sesión</a>
+                </nav>
+                <label for="btn-menu">✖️</label>
+            </div>
+        </div>
+
+        <!-- Contenido principal -->
+        <section>
+            <h1 style="text-align: center; color: #DAFDBA;">Planes de Suscripción</h1>
+            <div class="plans-container">
+                <!-- Plan 1 -->
+                <div class="plan-card">
+                    <div class="plan-image">S</div>
+                    <div class="plan-title">Seasonal Plan</div>
+                    <div class="plan-price">$59.99/caja</div>
+                    <div class="plan-description">Paga por cada caja de forma estacional. Ideal para quienes quieren probar.</div>
+                    <button class="plan-button" data-plan="1" onclick="openModal('Seasonal Plan', 'Paga $59.99 por caja. Se factura cada temporada. Ideal para principiantes.')">Más detalles</button>
+                </div>
+
+                <!-- Plan 2 -->
+                <div class="plan-card">
+                    <div class="plan-image">A</div>
+                    <div class="plan-title">Annual Plan</div>
+                    <div class="plan-price">$219.99/año</div>
+                    <div class="plan-description">Ahorra con el plan anual. Recibe 4 cajas y disfruta de acceso prioritario.</div>
+                    <button class="plan-button" data-plan="2" onclick="openModal('Annual Plan', 'Paga $219.99 al año por cuatro cajas. ¡Ahorra $20 al año y obtén acceso prioritario!')">Más detalles</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <section class="footer">
+            <h2><i><b>Mystycrate © 2024</b></i> All Rights Reserved</h2>
+            <div class="social-icons">
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-twitter"></i>
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-solid fa-envelope"></i>
+            </div>
+        </section>
+    </footer>
+
+    <script>
+        // Abre el modal con la información del plan
+        function openModal(title, description) {
+            const modal = document.createElement('div');
+            const pathSegments = window.location.pathname.split('/');
+            const id = pathSegments[3];
+            const idplan = document.querySelector('.plan-button').getAttribute('data-plan');
+            console.log(id);
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close" onclick="this.parentElement.parentElement.remove()">&times;</span>
+                    <div class="modal-header">${title}</div>
+                    <div class="modal-body">${description}</div>
+                    <button onclick="window.location.href='categorias/${id}/${idplan}'">Comprar</button>
+                </div>`;
+            document.body.appendChild(modal);
+            modal.style.display = 'flex';
+        }
+        let valor = localStorage.getItem('Correo');
+        console.log(valor);
+    </script>
+
+</body>
+
+</html>

@@ -6,14 +6,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pagos</title>
     <link rel="stylesheet" href="../css/generales.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <style>
+        .form {
+            max-width: 500px;
+            margin-top: 18%;
+        }
+    </style>
 </head>
 
 <body>
-    <header>
-
+    <header class="header">
+        <div class="container">
+            <div class="btn-menu">
+                <label for="btn-menu">☰</label>
+            </div>
+            <div class="logo">
+                <a href="index.html">
+                    <h1>Mystycrate</h1>
+                </a>
+            </div>
+            <nav class="menu">
+                <a href="../index.html">Inicio</a>
+                <a href="informacion.html">Nosotros</a>
+                <a href="login.html">Iniciar sesión</a>
+            </nav>
+        </div>
+        <div class="capa"></div>
+        <input type="checkbox" id="btn-menu" />
+        <div class="container-menu">
+            <div class="cont-menu">
+                <nav>
+                    <a href="inventario.html">Inventario</a>
+                    <a href="perfil.html">Perfil</a>
+                    <a href="suscripciones.html">Suscripciones</a>
+                    <a href="video.html">Video sobre la página</a>
+                    <a href="">Cerrar sesión</a>
+                </nav>
+                <label for="btn-menu">✖️</label>
+            </div>
+        </div>
     </header>
-
     <main>
+
+        <form class="form" method="post">
+            <div style="display: flex; gap: 1rem; width: 100%; margin-bottom: 1rem;">
+                <span class="input-span" style="flex: 1;">
+                    <label for="Numerotarjeta" class="label">Numero de la tarjeta</label>
+                    <input type="text" name="Numerotarjeta" id="Numerotarjeta" />
+                </span>
+                <span class="input-span" style="flex: 1;">
+                    <label for="titular" class="label">Titular de la tarjeta</label>
+                    <input type="text" name="titular" id="titular" />
+                </span>
+            </div>
+            <div style="display: flex; gap: 1rem; width: 100%; margin-bottom: 1rem;">
+                <span class="input-span" style="flex: 1;">
+                    <label for="fecha_venc" class="label">Fecha de vencimiento</label>
+                    <input type="date" name="fecha_venc" id="fecha_venc" />
+                </span>
+                <span class="input-span" style="flex: 1;">
+                    <label for="cvv" class="label">CVV</label>
+                    <input type="text" name="cvv" id="cvv" />
+                </span>
+            </div>
+            <div style="display: flex; gap: 1rem; width: 100%; margin-bottom: 1rem;">
+                <span class="input-span" style="flex: 1;">
+                    <label for="Direccion" class="label">Direccion</label>
+                    <input type="text" name="Direccion" id="Direccion" />
+                </span>
+                
+            </div>
+            <input class="submit" type="submit" value="Registrarse" />
+            <span class="span">¿Ya tienes una cuenta? <a href="/login">Inicia sesión</a></span>
+        </form>
 
     </main>
 

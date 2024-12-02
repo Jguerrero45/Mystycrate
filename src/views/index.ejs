@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mystycrate</title>
+    <link rel="stylesheet" href="/css/generales.css">
+    <link rel="shortcut icon" href="/icon/caja2.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+
+<style>
+    .profile-image-container {
+        margin-left: 30%;
+    }
+
+    .name_profile {
+        font-family: 'Times New Roman', Times, serif;
+        color: aliceblue;
+        margin-left: 36%;
+        margin-bottom: 4%;
+    }
+</style>
+
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="btn-menu">
+                <label for="btn-menu">☰</label>
+            </div>
+            <div class="logo">
+                <a href="/">
+                    <h1>Mystycrate</h1>
+                </a>
+            </div>
+            <nav class="menu">
+                <a href="index.html">Inicio</a>
+                <a href="./templates/informacion.html">Nosotros</a>
+                <a href="/login">Iniciar sesion</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="capa"></div>
+        <input type="checkbox" id="btn-menu" />
+        <div class="container-menu">
+            <div class="cont-menu">
+                <nav>
+                    <% if (typeof name !=='undefined' ) { %>
+                        <h1 class="name_profile">
+                            <%= name %>
+                        </h1>
+                        <% } %>
+
+                            <% if (typeof foto !=='undefined' ) { %>
+                                <div class="profile-image-container">
+                                    <img src="data:image/jpeg;base64,<%= foto %>" alt="Imagen de perfil"
+                                        class="profile-image">
+                                </div>
+                                <% } %>
+
+                                    <!-- Imagen de perfil dentro de un div circular -->
+
+
+                                    <a href="./templates/inventario.html">Inventario</a>
+                                    <% if (typeof correo !=='undefined' ) { %>
+                                        <a href="perfil/<%=correo%>">Perfil</a>
+                                        <% } %>
+                                            <% if (typeof correo !=='undefined' ) { %>
+                                                <a href="perfil/<%=correo%>/eliminar">Eliminar cuenta</a>
+                                                <% } %>
+                                                    <a href="./templates/suscripciones.html">Suscripciones</a>
+                                                    <a href="./templates/video.html">Video sobre la pagina</a>
+                                                    <a href="/logout">Cerrar sesion</a>
+                </nav>
+                <label for="btn-menu">✖️</label>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <section class="footer">
+            <h2><i><b>Mystycrate © 2024</b></i> all rights reserved</h2>
+            <div class="social-icons">
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-twitter"></i>
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-solid fa-envelope"></i>
+            </div>
+        </section>
+    </footer>
+
+    <script src="https://kit.fontawesome.com/003123b854.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

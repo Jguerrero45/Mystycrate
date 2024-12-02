@@ -1,0 +1,221 @@
+/*estilos generales( nav, footer, background, margin y fuentes) */
+
+/*paleta de colores: 
+#DAFDBA 
+#9AEBA3
+#45c480
+#13678A
+#012030
+*/
+
+
+@import url("https://fonts.googleapis.com/css?family=Montserrat|Montserrat+Alternates|Poppins&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+body {
+    font-family: "Montserrat Alternates", sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #212121;
+
+}
+
+
+header {
+    background-color: #222;
+}
+
+a {
+    text-decoration: none;
+}
+/* Agrega esto a tu archivo CSS */
+.profile-image-container {
+    width: 80px; /* Ajusta el tamaño del círculo */
+    height: 80px; /* Ajusta el tamaño del círculo */
+    border-radius: 50%; /* Esto hace que la imagen sea circular */
+    overflow: hidden; /* Asegura que la imagen no se salga del círculo */
+    margin-bottom: 15px; /* Espaciado debajo de la imagen */
+    display: flex;
+    justify-content: center; /* Centra la imagen dentro del contenedor */
+    align-items: center; /* Centra la imagen dentro del contenedor */
+}
+
+.profile-image {
+    width: 100%; /* La imagen ocupará todo el contenedor */
+    height: 100%; /* La imagen ocupará todo el contenedor */
+    object-fit: cover; /* Asegura que la imagen mantenga su proporción y no se distorsione */
+}
+
+.menu {
+    color: #fff;
+}
+
+.header {
+    width: 100%;
+    height: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 1);
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.container .btn-menu,
+.logo {
+    float: left;
+    line-height: 100px;
+}
+
+.container .btn-menu label {
+    color: #ffffff;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.logo h1 {
+    color: #fff;
+    font-size: 22px;
+    margin-left: 10px;
+}
+
+.container .menu {
+    float: right;
+    line-height: 100px;
+}
+
+.container .menu a {
+    display: inline-block;
+    padding: 15px;
+    line-height: normal;
+    text-decoration: none;
+    color: #fff;
+    transition: all 0.3s ease;
+    border-bottom: 2px solid transparent;
+    font-size: 15px;
+    margin-right: 5px;
+}
+
+
+.container .menu a:hover {
+    border-bottom: 2px solid #45c480;
+    padding-bottom: 5px;
+}
+
+#btn-menu {
+    display: none;
+}
+
+
+.container-menu {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    transition: all 500ms ease;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000;
+}
+
+#btn-menu:checked~.container-menu {
+    opacity: 1;
+    visibility: visible;
+}
+
+.cont-menu {
+    width: 100%;
+    max-width: 250px;
+    background: #012030;
+    height: 100vh;
+    position: relative;
+    transition: all 500ms ease;
+    transform: translateX(-100%);
+}
+
+#btn-menu:checked~.container-menu .cont-menu {
+    transform: translateX(0%);
+}
+
+.cont-menu nav {
+    transform: translateY(13%);
+}
+
+.cont-menu nav a {
+    display: block;
+    text-decoration: none;
+    padding: 20px;
+    color: #c7c7c7;
+    border-left: 5px solid transparent;
+    transition: all 400ms ease;
+}
+
+.cont-menu nav a:hover {
+    border-left: 5px solid #45c480;
+    background: #13678A;
+}
+
+.cont-menu label {
+    position: absolute;
+    right: 5px;
+    top: 10px;
+    color: #fffcfc;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+
+margin-top main {
+    flex: 1;
+}
+
+.footer {
+    margin-top: 52.5%;
+    position: sticky;
+    text-align: center;
+    align-items: center;
+    bottom: 0;
+    width: 100%;
+    background-color: #012030;
+    color: #ffffff;
+    padding: 5px 0;
+    z-index: 500;
+    height: 8%;
+    font-family: oblique;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 1);
+}
+
+.footer.visible {
+    display: flex;
+
+}
+
+.footer :hover:not(.social-icons) {
+    color: #13678A;
+}
+
+.social-icons {
+    font-size: 200%;
+    display: block;
+    justify-content: center;
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    min-width: 400px;
+    justify-content: center;
+    text-align: center;
+}
