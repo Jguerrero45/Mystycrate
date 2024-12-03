@@ -4,7 +4,7 @@ let imgSeleccionada = document.getElementById("img");
 let modeloSeleccionado = document.getElementById("modelo");
 let descripSeleccionada = document.getElementById("descripcion");
 let precioSeleccionado = document.getElementById("precio");
-
+let 
 function cargar(item) {
     quitarBordes();
     mostrador.style.width = "100%";

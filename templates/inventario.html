@@ -4,22 +4,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventario</title>
+    <title>Productos posibles</title>
+    <link rel="shortcut icon" href="../icon/caja2.ico" type="image/x-icon">
     <link rel="stylesheet" href="../css/generales.css">
+
+
 </head>
 
-<body>
-    <header>
+<style>
+    p {
+        margin-top: 3%;
+        margin-left: 2%;
+    }
 
+    .imagen h4 {
+        font-size: 1.4rem;
+        color: #ffffff;
+        text-align: center;
+        margin-top: 60px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 4%;
+    }
+
+    .imagen {
+        font-size: 1.8rem;
+        margin-top: 10%;
+        padding: 5%;
+        color: #ffffff;
+
+    }
+
+    div img {
+        width: calc(12% - 1rem);
+        /* Ancho del 25% con espacio entre las imágenes */
+        max-width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(221, 221, 221, 0.3);
+        transition: transform 0.3s, box-shadow 0.3s;
+        margin-right: 1rem;
+        /* Espacio entre las imágenes */
+        margin-bottom: 3rem;
+        cursor: pointer;
+    }
+
+    div img:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .galeria-catalogo {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+
+    .galeria-catalogo a {
+        flex: 1 1 calc(25% - 1rem);
+        max-width: calc(25% - 1rem);
+        text-align: center;
+    }
+
+    .galeria-catalogo a img {
+        width: auto;
+        height: auto;
+    }
+</style>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="btn-menu">
+                <label for="btn-menu">☰</label>
+            </div>
+            <div class="logo">
+                <a href="../index.html">
+                    <h1>Mystycrate</h1>
+                </a>
+            </div>
+            <nav class="menu">
+                <a href="../index.html">Inicio</a>
+                <a href="informacion.html">Nosotros</a>
+                <a href="login.html">Iniciar sesion</a>
+            </nav>
+        </div>
     </header>
 
     <main>
+        <div class="capa"></div>
+        <input type="checkbox" id="btn-menu" />
+        <div class="container-menu">
+            <div class="cont-menu">
+                <nav>
+                    <a href="inventario.html">Inventario</a>
+                    <a href="perfil.html">Perfil</a>
+                    <a href="suscripciones.html">Suscripciones</a>
+                    <a href="video.html">Video sobre la pagina</a>
+                    <a href="">Cerrar sesion</a>
+                </nav>
+                <label for="btn-menu">✖️</label>
+            </div>
+        </div>
+
+        <section class="imagen">
+            <h3>Productos posibles</h3>
+            <p>En este apartado podemos ver los productos posibles
+                en las cajas segun su categoria
+            </p>
+            <div>
+                <div>
+                    <h4>Categoria1</h4>
+                </div>
+                <div class="galeria-catalogo">
+                    <% if (data) { %>
+                        <% for (let i = 0; i < 3; i++) { %>
+                            <a href=""><img src="<%= data[i].foto %>" alt=""></a>
+                        <% } %>
+                    <% } %>
+                </div>
+                <div>
+                    <h4>Categoria2</h4>
+                </div>
+                <div class="galeria-catalogo">
+                    <a href=""><img src="../img/fondo.jpeg" alt=""></a>
+                    <a href=""><img src="../img/fondo.jpeg" alt=""></a>
+                    <a href=""><img src="../img/fondo.jpeg" alt=""></a>
+                    <a href=""><img src="../img/fondo.jpeg" alt=""></a>
+                    <a href=""><img src="../img/fondo.jpeg" alt=""></a>
+                </div>
+                <div>
+                    <h4>Categoria3</h4>
+                </div>
+                <div class="galeria-catalogo">
+                    <a href=""><img src="../img/fondo.jpeg" alt=""></a>
+                </div>
+            </div>
+
+            <!-- Contenedor para el fondo oscuro -->
+            <div id="overlay"
+                style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 999;">
+            </div>
+
+            <!-- Div del modal -->
+            <div id="info-div"
+                style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 30%; height: 60%; background-color: white; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); border-radius: 10px; padding: 20px; z-index: 1000; overflow-y: auto;">
+                <button id="close-div"
+                    style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 1.5rem; cursor: pointer;">✖️</button>
+                <div id="content-div">
+                    <!-- Este es el contenido que se actualizará dinámicamente -->
+                    <p>Cargando información...</p>
+                </div>
+            </div>
+
+
+        </section>
+
 
     </main>
 
     <footer>
-
+        <section class="footer">
+            <h2><i><b>Mystycrate © 2024</b></i> all rights reserved</h2>
+            <div class="social-icons">
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-twitter"></i>
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-solid fa-envelope"></i>
+            </div>
+        </section>
     </footer>
+
+    <script src="https://kit.fontawesome.com/003123b854.js" crossorigin="anonymous"></script>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const infoDiv = document.getElementById('info-div');
+            const overlay = document.getElementById('overlay');
+            const contentDiv = document.getElementById('content-div');
+            const closeDiv = document.getElementById('close-div');
+
+            // Añadir eventos a los enlaces de la galería
+            const links = document.querySelectorAll('.galeria-catalogo a');
+            links.forEach((link, index) => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault(); // Evitar el comportamiento predeterminado del enlace
+                    overlay.style.display = 'block'; // Mostrar el fondo oscuro
+                    infoDiv.style.display = 'block'; // Mostrar el modal
+
+                    // Cambiar contenido dinámicamente (puedes modificar esto según tus necesidades)
+                    contentDiv.innerHTML = `<h3>Información de Categoría ${index + 1}</h3>
+                                     <p>Esta es información dinámica cargada para el enlace ${index + 1}.</p>`;
+                });
+            });
+
+            // Cerrar el modal y el fondo oscuro
+            closeDiv.addEventListener('click', () => {
+                overlay.style.display = 'none';
+                infoDiv.style.display = 'none';
+            });
+
+            // También cerrar el modal si se hace clic fuera del contenido
+            overlay.addEventListener('click', () => {
+                overlay.style.display = 'none';
+                infoDiv.style.display = 'none';
+            });
+        });
+    </script>
+
 </body>
 
 </html>

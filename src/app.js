@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 app.use(myconnection(mysql, {
     host: 'localhost',
     user: 'root',
-    password: '45220220',
+    password: '1234',
     port: 3306,
     database: 'mystycrate'
 }, 'single'));

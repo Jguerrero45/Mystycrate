@@ -2,6 +2,32 @@ function golosinas(req, res) {
     res.render('productos/golosinas');
 }
 
+function mostrarInventarioGolosinas(req, res) {
+    req.getConnection((err, conn) => {
+        if (err) {
+            res.json(err);
+        }
+        conn.query('SELECT * FROM productos_generales INNER JOIN productos_golosinas ON productos_generales.id_producto = productos_golosinas.id_producto', (err, rows) => {
+            if (err) {
+                res.json(err);
+            }
+
+            // Convertir el buffer de imagen a base64 para cada producto
+            rows.forEach(row => {
+                if (row.foto) {
+                    row.foto = Buffer.from(row.foto).toString('base64');
+                    row.foto = `data:image/jpeg;base64,${row.foto}`; // O ajusta el tipo de imagen según sea necesario
+                }
+            });
+
+            res.render('productos/vista_productos_generales', {
+                data: rows
+            });
+        });
+    });
+}
+
+
 function registrargolosina(req, res) {
     const golosinaData = req.body;
     if (req.file) {
@@ -79,5 +105,6 @@ function registrargolosina(req, res) {
 
 module.exports = {
     golosinas,
-    registrargolosina
+    registrargolosina,
+    mostrarInventarioGolosinas
 }

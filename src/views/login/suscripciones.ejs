@@ -226,9 +226,12 @@
         function openModal(title, description) {
             const modal = document.createElement('div');
             const pathSegments = window.location.pathname.split('/');
-            const id = pathSegments[3];
-            const idplan = document.querySelector('.plan-button').getAttribute('data-plan');
+            const id = pathSegments[3];  // ID del usuario o la ruta que necesitas
+            const idplan = this.getAttribute('data-plan');  // Usar `this` para obtener el data-plan del botón presionado
+
+            console.log(idplan);  // Debería mostrar el valor correcto dependiendo del plan presionado
             console.log(id);
+
             modal.className = 'modal';
             modal.innerHTML = `
                 <div class="modal-content">
@@ -240,8 +243,7 @@
             document.body.appendChild(modal);
             modal.style.display = 'flex';
         }
-        let valor = localStorage.getItem('Correo');
-        console.log(valor);
+
     </script>
 
 </body>
