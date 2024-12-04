@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productos posibles</title>
-    <link rel="shortcut icon" href="../icon/caja2.ico" type="image/x-icon">
-    <link rel="stylesheet" href="../css/generales.css">
+    <link rel="shortcut icon" href="/icon/caja2.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/generales.css">
 
 
 </head>
@@ -120,7 +120,7 @@
                 </div>
                 <div class="galeria-catalogo">
                     <% if (data) { %>
-                        <% for (let i = 0; i < 4; i++) { %>
+                        <% for (let i = 0; i < data.length; i++) { %>
                             <!-- Añadimos atributos data-* para almacenar la información -->
                             <a href="#" data-nombre="<%= data[i].nombre_producto %>" data-descripcion="<%= data[i].descripcion %>" 
                                data-precio="<%= data[i].precio %>" data-foto="<%= data[i].foto %>">

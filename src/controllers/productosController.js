@@ -2,6 +2,8 @@ function golosinas(req, res) {
     res.render('productos/golosinas');
 }
 
+
+
 function mostrarInventarioGolosinas(req, res) {
     req.getConnection((err, conn) => {
         if (err) {
@@ -106,5 +108,5 @@ function registrargolosina(req, res) {
 module.exports = {
     golosinas,
     registrargolosina,
-    mostrarInventarioGolosinas
+    mostrarInventarioGolosinas,
 }

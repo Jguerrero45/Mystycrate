@@ -41,6 +41,69 @@ function obtenerusuario(req, res) {
     });
 }
 
+function obtenercajas(req, res) {
+    console.log('Obteniendo cajas del usuario:', req.params.correo);
+
+    req.getConnection((err, conn) => {
+        if (err) {
+            console.error('Error al conectar con la base de datos:', err);
+            return res.status(500).send('Error de conexión con la base de datos.');
+        }
+        conn.query('SELECT * FROM usuarios WHERE correo = ?', [req.params.correo], (err, rows) => {
+            if (err) {
+                console.error('Error al ejecutar la consulta:', err);
+                return res.status(500).send('Error al obtener el usuario.');
+            }
+            if (rows.length === 0) {
+                return res.status(404).send('Usuario no encontrado.');
+            }
+            const usuario = rows[0];
+            console.log('Usuario encontrado:', usuario.id_usuario);
+
+            // Obtener las cajas del usuario
+            conn.query('SELECT * FROM cajas_misteriosas WHERE id_usuario = ?', [usuario.id_usuario], (err, cajas) => {
+                if (err) {
+                    console.error('Error al ejecutar la consulta de cajas:', err);
+                    return res.status(500).send('Error al obtener las cajas.');
+                }
+                console.log('Cajas:', cajas);
+
+                // Obtener los productos asociados a las cajas
+                conn.query('SELECT * FROM productos_caja WHERE id_caja IN (?)', [cajas.map(row => row.id_caja)], (err, productosCaja) => {
+                    if (err) {
+                        console.error('Error al ejecutar la consulta de productos_caja:', err);
+                        return res.status(500).send('Error al obtener los productos de las cajas.');
+                    }
+                    console.log('Productos de las cajas:', productosCaja);
+
+                    // Obtener los productos generales asociados a los productos de las cajas
+                    conn.query('SELECT * FROM productos_generales WHERE id_producto IN (?)', [productosCaja.map(row => row.id_producto)], (err, productosGenerales) => {
+                        if (err) {
+                            console.error('Error al ejecutar la consulta de productos_generales:', err);
+                            return res.status(500).send('Error al obtener los productos generales.');
+                        }
+
+                        // Convertir el atributo 'foto' de Buffer a URL Base64
+                        productosGenerales.forEach(producto => {
+                            if (producto.foto) {
+                                // Convertir el Buffer a Base64 y asignar la URL
+                                producto.foto = `data:image/png;base64,${producto.foto.toString('base64')}`;
+                            }
+                        });
+
+                        // Renderizar la vista con los productos generales y sus imágenes convertidas
+                        res.render('productos/vista_productos_generales', {data: productosGenerales });
+                    });
+                });
+            });
+        });
+    });
+}
+
+
+
+
+
 function modificarusuario(req, res) {
 
     console.log('Modificando usuario:', req.params.correo);
@@ -119,5 +182,6 @@ function eliminarusuario(req, res) {
 module.exports = {
     obtenerusuario,
     modificarusuario,
-    eliminarusuario
+    eliminarusuario,
+    obtenercajas
 };

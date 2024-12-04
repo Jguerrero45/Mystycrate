@@ -13,9 +13,10 @@ router.get('/logout', LoginController.logout);
 router.get('/register/plans/:id',LoginController.plans)
 router.get('/register/plans/categorias/:id_usuario/:id_plan',LoginController.categorias)
 router.post('/register/plans/categorias/:id_usuario/:id_plan',LoginController.eleccioncategorias)
+router.get('/register/plans/categorias/:id_usuario/:id_plan/:categoria/encuesta',LoginController.encuestas)
 //router.post('/register/plans/pay/:id_usuario/:id_plan',LoginController.realizarpago)
-router.get('/register/plans/categorias/:id_usuario/:id_plan/:preferencia/:tipo/:subtipo/pay',LoginController.pay)
-router.post('/register/plans/categorias/:id_usuario/:id_plan/:preferencia/:tipo/:subtipo/pay',LoginController.realizarpago)
+router.get('/register/plans/categorias/:id_usuario/:id_plan/:preferencia/encuesta/:tipo/:subtipo/pay',LoginController.pay)
+router.post('/register/plans/categorias/:id_usuario/:id_plan/:preferencia/encuesta/:tipo/:subtipo/pay',LoginController.realizarpago)
 router.get('/eliminar/:id',LoginController.eliminar)
 
 module.exports = router;

@@ -11,6 +11,11 @@ function login(req, res) {
   
 }
 
+function encuestas(req, res) {
+    res.render('login/encuestas');
+}   
+
+
 function categorias(req, res) {
     res.render('login/categorias');
 }
@@ -32,19 +37,18 @@ function realizarpago(req, res) {
     const preferencia = req.params.preferencia;
     const tipo = req.params.tipo;
     const subtipo = req.params.subtipo;
+    console.log(id_usuario, id_plan, preferencia, tipo, subtipo);
+
 
     // Eliminar corchetes y convertir a array
-    const arraytipo = tipo.replace(/[\[\]']/g, '').split(',');
-    const arraysubtipo = subtipo.replace(/[\[\]']/g, '').split(',');
+    const arraytipo = tipo.split(',');
+    const arraysubtipo = subtipo.split(',');
+    console.log(arraytipo, arraysubtipo);
 
     delete data.Numerotarjeta;
     delete data.titular;
     delete data.fecha_venc;
     delete data.cvv;
-
-    console.log('id_usuario:', id_usuario);
-    console.log('id_plan:', id_plan);
-    console.log('data:', data);
 
     req.getConnection((err, conn) => {
         if (err) {
@@ -52,7 +56,6 @@ function realizarpago(req, res) {
             return res.status(500).send('Error en el servidor');
         }
 
-        // Obtener el monto del plan
         conn.query('SELECT precio FROM planes WHERE id_plan = ?', [id_plan], (err, rows) => {
             if (err) {
                 console.error('Error al ejecutar la consulta:', err);
@@ -60,7 +63,6 @@ function realizarpago(req, res) {
             }
 
             if (rows.length === 0) {
-                console.log('Plan no encontrado');
                 return res.render('login/pagos', { message: 'Plan no encontrado' });
             }
 
@@ -68,14 +70,12 @@ function realizarpago(req, res) {
             const pago = { usuario_id: id_usuario, id_plan: id_plan, monto, fecha_pago: new Date() };
             const cliente = { id_cliente: id_usuario, direccion: data.Direccion };
 
-            // Insertar pago
             conn.query('INSERT INTO pagos SET ?', pago, (err) => {
                 if (err) {
                     console.error('Error al realizar el pago:', err);
                     return res.status(500).send('Error al realizar el pago');
                 }
 
-                // Insertar cliente
                 conn.query('INSERT INTO clientes SET ?', cliente, (err) => {
                     if (err) {
                         console.error('Error al registrar cliente:', err);
@@ -84,59 +84,77 @@ function realizarpago(req, res) {
 
                     if (preferencia === 'golosinas') {
                         const condicionesSabores = arraysubtipo.map(sabor => `pg.sabor LIKE '%${sabor}%'`).join(' OR ');
+
                         const consultaSQL = `
-                            SELECT DISTINCT pg_gen.id_producto, pg_gen.nombre_producto, pg_gen.descripcion, pg_gen.precio, pg_gen.stock, pg.sabor, pg.tipo_golosina
+                            SELECT DISTINCT pg_gen.id_producto, pg_gen.nombre_producto, pg_gen.descripcion, pg_gen.precio, pg_gen.stock
                             FROM productos_generales pg_gen
                             JOIN productos_golosinas pg ON pg_gen.id_producto = pg.id_producto
-                            WHERE pg.tipo_golosina = ?
+                            WHERE pg.tipo_golosina IN (${arraytipo.map(() => '?').join(',')})
                             AND (${condicionesSabores})
                             AND pg_gen.stock > 0
                             ORDER BY RAND()
                             LIMIT 5;
                         `;
 
-                        conn.query(consultaSQL, arraytipo, (err, productos) => {
+                        conn.query(consultaSQL, (err, productos) => {
                             if (err) {
                                 console.error('Error en la consulta:', err);
-                                return;
+                                return res.status(500).send('Error en la consulta');
                             }
 
-                            // Actualizar el stock de los productos seleccionados
-                            let productoCount = productos.length;
-                            productos.forEach((producto, index) => {
-                                const nuevoStock = producto.stock - 1;
+                            if (productos.length === 0) {
+                                console.log('No hay productos disponibles');
+                                return res.redirect('/');
+                            }
 
-                                if (nuevoStock >= 0) {
-                                    conn.query(
-                                        `UPDATE productos_generales SET stock = ? WHERE id_producto = ?`,
-                                        [nuevoStock, producto.id_producto],
-                                        (err) => {
-                                            if (err) {
-                                                console.error('Error al actualizar stock:', err);
-                                            }
-                                            // Si es el último producto, entonces enviar respuesta
-                                            if (index === productoCount - 1) {
-                                                req.session.loggedin = true;
-                                                console.log('Pago realizado con éxito');
-                                                res.redirect('/');
-                                            }
-                                        }
-                                    );
-                                } else {
-                                    console.log(`Stock insuficiente para el producto ${producto.id_producto}`);
-                                    // Si es el último producto, enviar respuesta
-                                    if (index === productoCount - 1) {
-                                        req.session.loggedin = true;
-                                        console.log('Pago realizado con éxito');
-                                        res.redirect('/');
-                                    }
+                            // Insertar una nueva caja misteriosa
+                            const nuevaCaja = { id_usuario, total_productos: productos.length };
+
+                            conn.query('INSERT INTO cajas_misteriosas SET ?', nuevaCaja, (err, result) => {
+                                if (err) {
+                                    console.error('Error al insertar en cajas_misteriosas:', err);
+                                    return res.status(500).send('Error al crear la caja misteriosa');
                                 }
+
+                                const id_caja = result.insertId;
+
+                                // Insertar los productos en la tabla productos_caja
+                                productos.forEach((producto, index) => {
+                                    const productoCaja = {
+                                        id_caja,
+                                        id_producto: producto.id_producto,
+                                        cantidad: 1 // Suponiendo que siempre es 1 por producto
+                                    };
+
+                                    conn.query('INSERT INTO productos_caja SET ?', productoCaja, (err) => {
+                                        if (err) {
+                                            console.error('Error al insertar en productos_caja:', err);
+                                        }
+
+                                        // Actualizar el stock del producto
+                                        const nuevoStock = producto.stock - 1;
+
+                                        conn.query(
+                                            'UPDATE productos_generales SET stock = ? WHERE id_producto = ?',
+                                            [nuevoStock, producto.id_producto],
+                                            (err) => {
+                                                if (err) {
+                                                    console.error('Error al actualizar stock:', err);
+                                                }
+
+                                                // Si es el último producto, redirigir
+                                                if (index === productos.length - 1) {
+                                                    
+                                                    console.log('Caja y productos registrados con éxito');
+                                                    res.redirect('/');
+                                                }
+                                            }
+                                        );
+                                    });
+                                });
                             });
                         });
                     } else {
-                        // Si no es golosinas, redirigir
-                        req.session.loggedin = true;
-                        console.log('Pago realizado con éxito');
                         res.redirect('/');
                     }
                 });
@@ -144,6 +162,7 @@ function realizarpago(req, res) {
         });
     });
 }
+
 
 
 
@@ -284,5 +303,6 @@ module.exports = {
     eliminar: eliminar,
     realizarpago: realizarpago,
     categorias: categorias,
-    eleccioncategorias: eleccioncategorias
+    eleccioncategorias: eleccioncategorias,
+    encuestas: encuestas
 };

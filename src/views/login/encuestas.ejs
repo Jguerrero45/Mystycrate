@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encuestas</title>
+    <link rel="shortcut icon" href="../icon/caja2.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/generales.css">
+    <style>
+        main {
+            margin-top: 25%;
+            margin-left: 10%;
+        }
+
+        .encuesta-container {
+            color: white;
+            display: none;
+            background-color: #012030;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            width: 70%;
+            height: 80%;
+        }
+
+        .boton-toggle {
+            background-color: #45c480;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .boton-toggle:hover {
+            background-color: #13678A;
+        }
+
+        .formulario {
+            margin-top: 20px;
+        }
+
+        .pregunta {
+            margin-bottom: 15px;
+        }
+
+        .pregunta label {
+            display: block;
+            font-weight: bold;
+        }
+
+        .radio-group input {
+            margin-right: 10px;
+        }
+
+        .submit-btn {
+            background-color: #13678A;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .submit-btn:hover {
+            background-color: #45c480;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container">
+            <div class="btn-menu">
+                <label for="btn-menu">☰</label>
+            </div>
+            <div class="logo">
+                <a href="../index.html">
+                    <h1>Mystycrate</h1>
+                </a>
+            </div>
+            <nav class="menu">
+                <a href="../index.html">Inicio</a>
+                <a href="informacion.html">Nosotros</a>
+                <a href="login.html">Iniciar sesion</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <button class="boton-toggle" onclick="toggleEncuesta()">Mostrar Encuesta</button>
+
+        <div class="encuesta-container" id="encuesta-container">
+            <form class="formulario" onsubmit="return enviarFormulario()">
+                <div class="pregunta">
+                    <label for="pregunta2">¿Qué tipo de golosinas te gustan?:</label>
+                    <div class="radio-group">
+                        <label><input type="checkbox" name="tipos" value="chicle"> Chicle</label>
+                        <label><input type="checkbox" name="tipos" value="gomitas"> Gomitas</label>
+                        <label><input type="checkbox" name="tipos" value="chocolate"> Chocolate</label>
+                    </div>
+                </div>
+                <div class="pregunta">
+                    <label for="pregunta2">¿Qué sabor de golosinas prefieres?:</label>
+                    <div class="radio-group">
+                        <label><input type="checkbox" name="sabores" value="limon"> Limón</label>
+                        <label><input type="checkbox" name="sabores" value="fresa"> Fresa</label>
+                        <label><input type="checkbox" name="sabores" value="sandia"> Sandía</label>
+                        <label><input type="checkbox" name="sabores" value="naranja"> Naranja</label>
+                        <label><input type="checkbox" name="sabores" value="arandano"> Arándano</label>
+                        <label><input type="checkbox" name="sabores" value="cereza"> Cereza</label>
+                    </div>
+                </div>
+
+                <!-- Campos ocultos para almacenar las selecciones -->
+                <input type="hidden" id="tipos-seleccionados" name="tipos_seleccionados">
+                <input type="hidden" id="sabores-seleccionados" name="sabores_seleccionados">
+
+                <button type="submit" class="submit-btn">Enviar Respuestas</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <section class="footer">
+            <h2><i><b>Mystycrate © 2024</b></i> all rights reserved</h2>
+        </section>
+    </footer>
+
+    <script>
+        function toggleEncuesta() {
+            var encuesta = document.getElementById('encuesta-container');
+            encuesta.style.display = (encuesta.style.display === 'block') ? 'none' : 'block';
+        }
+
+        // Actualiza los campos ocultos con las opciones seleccionadas
+        function actualizarOpcionesSeleccionadas() {
+            const tipos = document.querySelectorAll('input[name="tipos"]:checked');
+            const sabores = document.querySelectorAll('input[name="sabores"]:checked');
+
+            // Convertimos las selecciones a arrays de valores
+            const tiposSeleccionados = Array.from(tipos).map(checkbox => checkbox.value);
+            const saboresSeleccionados = Array.from(sabores).map(checkbox => checkbox.value);
+
+            // Actualizamos los campos ocultos
+            document.getElementById('tipos-seleccionados').value = tiposSeleccionados.join(',');
+            document.getElementById('sabores-seleccionados').value = saboresSeleccionados.join(',');
+        }
+
+        // Escucha los cambios en los checkboxes
+        document.querySelectorAll('input[name="tipos"], input[name="sabores"]').forEach(checkbox => {
+            checkbox.addEventListener('change', actualizarOpcionesSeleccionadas);
+        });
+
+        function enviarFormulario() {
+            
+            const tipos = document.getElementById('tipos-seleccionados').value;
+            const sabores = document.getElementById('sabores-seleccionados').value;
+            window.location.href = window.location.href + `/${tipos}/${sabores}/pay`;
+            alert(window.location.href + `/${tipos}/${sabores}/pay`);
+            if (!tipos && !sabores) {
+                alert("Por favor, selecciona al menos un tipo y un sabor.");
+                return false; // Evita el envío si no hay selección
+            }
+            alert("Tipos de golosinas: " + tipos + "\nSabores: " + sabores);
+            
+            return true;
+        }
+    </script>
+
+</body>
+
+</html>

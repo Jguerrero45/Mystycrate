@@ -38,80 +38,37 @@
                     <a href="inventario.html">Inventario</a>
                     <a href="perfil.html">Perfil</a>
                     <a href="suscripciones.html">Suscripciones</a>
-                    <a href="video.html">Video sobre la pagina</a>
-                    <a href="">Cerrar sesion</a>
+                    <a href="video.html">Video sobre la página</a>
+                    <a href="">Cerrar sesión</a>
                 </nav>
                 <label for="btn-menu">✖️</label>
             </div>
         </div>
 
-        <div>
-
-        </div>
-
         <section class="contenido">
             <div class="mostrador" id="mostrador">
                 <div class="fila">
-                    <div class="item" onclick="cargar(this)">
+                    <div class="item" data-valor="golosinas" onclick="cargar(this)">
                         <div class="contenedor-foto">
                             <img src="img/1.png" alt="">
                         </div>
-                        <p class="descripcion">Titulo</p>
-                        <span class="precio">$ 1.800</span>
+                        <p class="descripcion">Golosinas</p>
                     </div>
-                    <div class="item" onclick="cargar(this)">
+                    <div class="item" data-valor="belleza" onclick="cargar(this)">
                         <div class="contenedor-foto">
                             <img src="img/2.png" alt="">
                         </div>
-                        <p class="descripcion" id>Titulo</p>
-                        <span class="precio">$ 1.700</span>
+                        <p class="descripcion">Belleza</p>
                     </div>
-                    <div class="item" onclick="cargar(this)">
+                    <div class="item" data-valor="ropa" onclick="cargar(this)">
                         <div class="contenedor-foto">
                             <img src="img/3.png" alt="">
                         </div>
-                        <p class="descripcion">Titulo</p>
-                        <span class="precio">$ 1.600</span>
-                    </div>
-                    <div class="item" onclick="cargar(this)">
-                        <div class="contenedor-foto">
-                            <img src="/img/fondo.jpeg" alt="">
-                        </div>
-                        <p class="descripcion">Titulo</p>
-                        <span class="precio">$ 1.500</span>
-                    </div>
-                </div>
-                <div class="fila">
-                    <div class="item" onclick="cargar(this)">
-                        <div class="contenedor-foto">
-                            <img src="img/5.png" alt="">
-                        </div>
-                        <p class="descripcion">Titulo</p>
-                        <span class="precio">$ 1.400</span>
-                    </div>
-                    <div class="item" onclick="cargar(this)">
-                        <div class="contenedor-foto">
-                            <img src="img/6.png" alt="">
-                        </div>
-                        <p class="descripcion">Titulo</p>
-                        <span class="precio">$ 1.300</span>
-                    </div>
-                    <div class="item" onclick="cargar(this)">
-                        <div class="contenedor-foto">
-                            <img src="img/7.png" alt="">
-                        </div>
-                        <p class="descripcion">Titulo</p>
-                        <span class="precio">$ 1.200</span>
-                    </div>
-                    <div class="item" onclick="cargar(this)">
-                        <div class="contenedor-foto">
-                            <img src="img/8.png" alt="">
-                        </div>
-                        <p class="descripcion">Titulo</p>
-                        <span class="precio">$ 1.100</span>
+                        <p class="descripcion">Ropa</p>
                     </div>
                 </div>
             </div>
+
             <!-- CONTENEDOR DEL ITEM SELECCIONADO -->
             <div class="seleccion" id="seleccion">
                 <div class="cerrar" onclick="cerrar()">
@@ -119,21 +76,15 @@
                 </div>
                 <div class="info">
                     <img src="img/1.png" alt="" id="img">
-                    <h2 id="modelo">Titulo</h2>
+                    <h2 id="modelo">Título</h2>
                     <p id="descripcion">Descripción</p>
 
-                    <span class="precio" id="precio">$ 1.000</span>
-
-                    <form method="post">
+                    <form id="suscripcion-form" method="post">
                         <button type="submit">Suscribirme</button>
                     </form>
-                    
                 </div>
             </div>
         </section>
-
-
-
     </main>
 
     <footer>
@@ -147,8 +98,10 @@
             </div>
         </section>
     </footer>
+
     <script src="/js/categorias.js"></script>
     <script src="https://kit.fontawesome.com/003123b854.js" crossorigin="anonymous"></script>
+
 </body>
 
 </html>

@@ -193,7 +193,8 @@
                     <div class="plan-title">Seasonal Plan</div>
                     <div class="plan-price">$59.99/caja</div>
                     <div class="plan-description">Paga por cada caja de forma estacional. Ideal para quienes quieren probar.</div>
-                    <button class="plan-button" data-plan="1" onclick="openModal('Seasonal Plan', 'Paga $59.99 por caja. Se factura cada temporada. Ideal para principiantes.')">Más detalles</button>
+                    <button class="plan-button" data-plan="1" onclick="openModal(this, 'Seasonal Plan', 'Paga $59.99 por caja. Se factura cada temporada. Ideal para principiantes.')">Más detalles</button>
+
                 </div>
 
                 <!-- Plan 2 -->
@@ -202,7 +203,8 @@
                     <div class="plan-title">Annual Plan</div>
                     <div class="plan-price">$219.99/año</div>
                     <div class="plan-description">Ahorra con el plan anual. Recibe 4 cajas y disfruta de acceso prioritario.</div>
-                    <button class="plan-button" data-plan="2" onclick="openModal('Annual Plan', 'Paga $219.99 al año por cuatro cajas. ¡Ahorra $20 al año y obtén acceso prioritario!')">Más detalles</button>
+                    <button class="plan-button" data-plan="2" onclick="openModal(this, 'Annual Plan', 'Paga $219.99 al año por cuatro cajas. ¡Ahorra $20 al año y obtén acceso prioritario!')">Más detalles</button>
+
                 </div>
             </div>
         </section>
@@ -222,27 +224,30 @@
     </footer>
 
     <script>
-        // Abre el modal con la información del plan
-        function openModal(title, description) {
-            const modal = document.createElement('div');
-            const pathSegments = window.location.pathname.split('/');
-            const id = pathSegments[3];  // ID del usuario o la ruta que necesitas
-            const idplan = this.getAttribute('data-plan');  // Usar `this` para obtener el data-plan del botón presionado
+                    function openModal(button, title, description) {
+                const modal = document.createElement('div');
 
-            console.log(idplan);  // Debería mostrar el valor correcto dependiendo del plan presionado
-            console.log(id);
+                // Obtener el id del usuario desde la URL
+                const pathSegments = window.location.pathname.split('/');
+                const id = pathSegments[3];  // Asume que el ID está en la cuarta posición de la URL
 
-            modal.className = 'modal';
-            modal.innerHTML = `
-                <div class="modal-content">
-                    <span class="close" onclick="this.parentElement.parentElement.remove()">&times;</span>
-                    <div class="modal-header">${title}</div>
-                    <div class="modal-body">${description}</div>
-                    <button onclick="window.location.href='categorias/${id}/${idplan}'">Comprar</button>
-                </div>`;
-            document.body.appendChild(modal);
-            modal.style.display = 'flex';
-        }
+                // Obtener el atributo data-plan del botón
+                const idplan = button.getAttribute('data-plan');
+
+                console.log(idplan);  // Muestra el valor correcto del plan presionado
+                console.log(id);  // Muestra el ID obtenido de la URL
+
+                modal.className = 'modal';
+                modal.innerHTML = `
+                    <div class="modal-content">
+                        <span class="close" onclick="this.parentElement.parentElement.remove()">&times;</span>
+                        <div class="modal-header">${title}</div>
+                        <div class="modal-body">${description}</div>
+                        <button onclick="window.location.href='categorias/${id}/${idplan}'">Comprar</button>
+                    </div>`;
+                document.body.appendChild(modal);
+                modal.style.display = 'flex';
+            }
 
     </script>
 
